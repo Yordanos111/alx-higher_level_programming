@@ -1,5 +1,3 @@
 #!/usr/bin/python3
 str = "Holberton School"
-mult = 3 * str
-print(mult)
-print(str[0:10])
+print("{}{}{}\n{}".format(str, str, str, str[0:9]))
