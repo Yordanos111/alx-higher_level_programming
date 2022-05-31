@@ -1,44 +1,50 @@
 #include "lists.h"
-#include <stdlib.h>
-#include <unistd.h>
-
 /**
- * insert_node - inserts a number in an ordered linked list
- * @head: double pointer to the linked list
- * @number: number to insert in the new node
- *
- * Return: address of the new node, or NULL
+ * insert_node - inserts a number into a sorted singly linked list
+ * @head: pointer to the initial linked list pointer
+ * @number: number to insert
+ * Return: pointer to the new node
  */
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *c = *head;
-	listint_t *nw = NULL;
-	listint_t *t = NULL;
+	listint_t *new, *tmp;
+	int i, j;
 
-	if (!head)
-		return (NULL);
-
-	nw = malloc(sizeof(listint_t));
+	new = malloc(sizeof(listint_t));
 	if (!new)
 		return (NULL);
-	nw->n = number;
-	nw->next = NULL;
-
-	if (!*head || (*head)->n > number)
+	new->n = number, tmp = *head;
+	if (!(*head))
+		return (*head = new, new->next = NULL, new);
+	for (i = 0; tmp; i++)
 	{
-		nw->next = *head;
-		return (*head = nw);
-	}
-	else
-	{
-		while (current && current->n < number)
+		if (number > tmp->n)
 		{
-			t = c;
-			c = c->next;
+			if (!tmp->next)
+				return (tmp->next = new, new->next = NULL, new);
+			tmp = tmp->next;
+			continue;
 		}
-		t->next = nw;
-		nw->next = c;
+		else
+		{
+			new->next = tmp;
+			if (tmp == *head)
+			{
+				*head = new;
+				break;
+			}
+			tmp = *head;
+			for (j = 0; j < i; j++)
+			{
+				if (j == (i - 1))
+				{
+					tmp->next = new;
+					break;
+				}
+				tmp = tmp->next;
+			}
+			break;
+		}
 	}
-
 	return (new);
 }
