@@ -1,3 +1,3 @@
 #!/bin/bash
-# This program takes in a URL, sends a GET request to the URL, and displays the body of the response.
+# this program takes in a URL, sends a GET request to the URL, and displays the body of the response.
 curl -s "$1" -X GET -L
